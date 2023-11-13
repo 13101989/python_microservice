@@ -11,4 +11,4 @@ def test_read_root():
 def test_read_data():
     response = client.get("/data/ion")
     assert response.status_code == 200
-    assert response.json() == {"message": "Hell on World ion"}
+    assert response.json() == {"message": "Hell on World Ion"}
