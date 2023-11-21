@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.10' // Use an official Python Docker image
-            args '-u root:root' // Run as root (if necessary)
+            image 'python:3.10'
+            args '-v /your/workspace:/workspace'
         }
     }
 
