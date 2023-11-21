@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Get some code from a GitHub repository
-                git 'https://github.com/13101989/python_microservice.git'
+                // // Get some code from a GitHub repository
+                // git 'https://github.com/13101989/python_microservice.git'
 
                 // Install dependencies
                 sh "python -m pip install --upgrade pip && pip install -r requirements.txt"
