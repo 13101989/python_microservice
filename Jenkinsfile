@@ -1,20 +1,26 @@
 pipeline {
-    agent any
+    agent any // This will run on any available node
 
     stages {
-        stage('Build') {
+        stage('Setup and Test') {
             steps {
-                // // Get some code from a GitHub repository
-                // git 'https://github.com/13101989/python_microservice.git'
+                checkout scm // Checkout the code from the source control
 
-                // Install dependencies
-                sh "python -m pip install --upgrade pip && pip install -r requirements.txt"
+                script {
+                    // Set up Python 3.10 (assuming Python 3.10 is already installed on the node)
+                    // You might need to adjust the command depending on how Python is installed on your nodes
 
-                //Analyzing the code with pylint
-                sh "pylint app/"
-                sh "mypy app/"
-                sh "pytest ."
+                    // Install dependencies
+                    sh """
+                        python3 -m pip install --upgrade pip
+                        python3 -m pip install -r requirements.txt
+                    """
+
+                    // Code Analysis and Tests
+                    sh "python3 -m pylint \$(git ls-files '*.py')"
+                    sh "python3 -m mypy \$(git ls-files '*.py')"
+                    sh "python3 -m pytest ."
+                }
             }
         }
     }
-}
