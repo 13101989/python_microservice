@@ -1,5 +1,10 @@
 pipeline {
-    agent any // This will run on any available node
+    agent {
+        docker {
+            image 'python:3.10' // Use an official Python Docker image
+            args '-u root:root' // Run as root (if necessary)
+        }
+    }
 
     stages {
         stage('Setup and Test') {
@@ -7,10 +12,6 @@ pipeline {
                 checkout scm // Checkout the code from the source control
 
                 script {
-                    // Set up Python 3.10 (assuming Python 3.10 is already installed on the node)
-                    // You might need to adjust the command depending on how Python is installed on your nodes
-                    sh "sudo apt-get update && sudo apt-get install -y python3.10"
-
                     // Install dependencies
                     sh """
                         python3 -m pip install --upgrade pip
